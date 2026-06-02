@@ -1,0 +1,26 @@
+/* The Grid Container */
+.card-grid {
+  display: grid;
+  /* Creates 3 columns splitting the available space equally */
+  grid-template-columns: repeat(3, 1fr); 
+  /* Adds a 20px gap between rows and columns */
+  gap: 20px; 
+  padding: 20px;
+}
+
+/* Base Card Styling (Optional) */
+.card {
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+/* Responsive Mobile Breakpoint */
+@media (max-width: 768px) {
+  .card-grid {
+    /* Stacks cards into 1 column on smaller screens */
+    grid-template-columns: 1fr; 
+  }
+}
