@@ -1,5 +1,6 @@
 import FilterBar from "./components/FilterBar";
 import ProductGrid from "./components/ProductGrid";
+import ProductModal from "./components/ProductModal";
 import './grid.css'; 
 import { useState } from "react";
 
@@ -17,6 +18,8 @@ export default function App (){
 
     const filteredProducts = activeFilter === 'All' ? productsArray : productsArray.filter(p=> p.category === activeFilter)
 
+    const [selectedProduct, setSelectedProduct] = useState(null)
+
 
     return (
 
@@ -30,8 +33,11 @@ export default function App (){
 
             <div className="card-grid">
             
-                <ProductGrid  products={filteredProducts}/>
+                <ProductGrid  products={filteredProducts} onSelect={setSelectedProduct} />
+                
             </div>
+            {selectedProduct && <ProductModal product={selectedProduct} onClose={() => setSelectedProduct(null)}/>}
+            
 
         </div>
     )
