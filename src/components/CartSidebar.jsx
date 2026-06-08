@@ -1,7 +1,7 @@
 import './CartSidebar.css';
 
-export default function CartSidebar({cart, onRemove, onClose}){
-   const total = cart.reduce((sum, item) => sum + item.price, 0)
+export default function CartSidebar({cart, onRemove, onIncrease, onDecrease, onClose}){
+   const total = cart.reduce((sum, item) => sum + item.product.price * item.quantity, 0)
   return(
     <div className="cart-sidebar">
         <div className="cart-header">
@@ -12,8 +12,11 @@ export default function CartSidebar({cart, onRemove, onClose}){
         ? <p>Your cart is empty.</p>
         : cart.map((item, i) => (
             <div key={i} className="cart-item">
-              <span>{item.name}</span>
-              <span>${item.price.toFixed(2)}</span>
+              <span>{item.product.name}</span>
+              <button onClick={() => onDecrease(i)}>-</button>
+              <span>{item.quantity}</span>
+              <button onClick={() => onIncrease(i)}>+</button>
+              <span>${(item.product.price * item.quantity).toFixed(2)}</span>
               <button onClick={() => onRemove(i)}>Remove</button>
             </div>
           ))

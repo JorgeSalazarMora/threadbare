@@ -53,3 +53,10 @@
   color: white;
   border-color: #0056b3;
 }
+
+.empty-state {
+  text-align: center;
+  color: #888;
+  font-size: 1.1rem;
+  padding: 40px 20px;
+}
