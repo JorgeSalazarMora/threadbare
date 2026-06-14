@@ -1,35 +1,33 @@
-import FilterBar from "./components/FilterBar";
-import ProductGrid from "./components/ProductGrid";
-import ProductModal from "./components/ProductModal";
 import CartSidebar from "./components/CartSidebar";
-import './grid.css'; 
-import { useState } from "react";
-import SearchBar from "./components/SearchBar";
+import CheckoutForm from "./components/CheckoutForm";
+import Confirmation from "./pages/Confirmation";
+import NotFound from "./pages/NotFound";
+import './grid.css';
+import './App.css';
+import { useState, useEffect } from "react";
+import { useNavigate, Routes, Route } from 'react-router-dom';
+import Shop from "./pages/Shop";
 
 export default function App (){
-    const productsArray = [
-        {id:1, name:'T-shirt', price:100, image:'https://picsum.photos/id/1/200/300', category:'Tops'},
-        {id:2, name:'Jeans', price:100, image:'https://picsum.photos/id/1/200/300', category:'Bottoms'},
-        {id:3, name:'Hoddie', price:100, image:'https://picsum.photos/id/1/200/300', category:'Outerwear'},
-        {id:4, name:'Hat', price:100, image:'https://picsum.photos/id/1/200/300', category:'Tops'},
-        {id:5, name:'Black Jeans', price:100, image:'https://picsum.photos/id/1/200/300', category:'Bottoms'},
-        {id:6, name:'Jacket', price:100, image:'https://picsum.photos/id/1/200/300', category:'Outerwear'}
-    ];
+   
 
-    const [searchQuery, setSearchQuery] = useState('')
+    const navigate = useNavigate();
 
-    const [activeFilter, setActiveFilter] = useState('All')
+    const [cart, setCart] = useState(() => {
+        try {
+            const saved = localStorage.getItem('cart');
+            return saved ? JSON.parse(saved) : [];
+        } catch {
+            return [];
+        }
+    });
 
-    const filteredProducts = productsArray.filter(p=> activeFilter === 'All' || p.category === activeFilter)
-                                            .filter(p=> p.name.toLowerCase().includes(searchQuery.toLocaleLowerCase()))
+    useEffect(() => {
+        localStorage.setItem('cart', JSON.stringify(cart));
+    }, [cart]);
 
-    const [selectedProduct, setSelectedProduct] = useState(null)
-
-    const [cart, setCart] = useState([])
 
     const [cartOpen, setCartOpen] = useState(false)
-
-    
 
     function addToCart(product){
         setCart(prev => {
@@ -66,9 +64,21 @@ export default function App (){
             })
     }
 
+    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+
     return (
 
         <div>
+
+            <header className="site-header">
+                <span className="site-header__title">Threadbare</span>
+                <button className="cart-btn" onClick={() => setCartOpen(true)}>
+                    🛒 Cart
+                    {totalItems > 0 && (
+                        <span className="site-header__badge">{totalItems}</span>
+                    )}
+                </button>
+            </header>
 
             {cartOpen && (
             <CartSidebar
@@ -77,34 +87,26 @@ export default function App (){
                 onIncrease={increaseQty}
                 onDecrease={decreaseQty}
                 onClose={() => setCartOpen(false)}
+                onCheckout={() => { setCartOpen(false); navigate('/checkout'); }}
             />
             )}
 
-            <SearchBar
-              searchQuery={searchQuery}
-              onSearch={setSearchQuery}/>
+            <Routes>
+                <Route path='/' element={
+                     <Shop addToCart={addToCart}/>
+                } />
 
-            <div className="app-header">
-                <FilterBar
-                    activeFilter={activeFilter}
-                    onFilterChange={setActiveFilter}
-                />
-                <button className="cart-btn" onClick={() => setCartOpen(true)}>
-                    🛒 Cart ({cart.length})
-                </button>
-            </div>
+                <Route path='/checkout' element= {
+                    <CheckoutForm onSuccess={() => {
+                        setCart([])
+                        navigate('/confirmation');
+                    }}/>
+                }/>
 
-            <p>{filteredProducts.length} products</p>
+                <Route path='/confirmation' element={<Confirmation />}/>
+                <Route path='*'             element={<NotFound />}/>
 
-            {filteredProducts.length === 0
-                ? <p className="empty-state">No products match your search.</p>
-                :<div className="card-grid">
-                    <ProductGrid  products={filteredProducts} onSelect={setSelectedProduct} />
-                  </div>
-            }
-
-            {selectedProduct && <ProductModal product={selectedProduct} onClose={() => setSelectedProduct(null)} addToCart={addToCart}/>}
-            
+            </Routes>
         </div>
     )
 }

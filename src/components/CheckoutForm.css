@@ -1,0 +1,91 @@
+.checkout-form {
+  max-width: 480px;
+  margin: 40px auto;
+  padding: 32px;
+  background: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.checkout-form h2 {
+  margin: 0 0 8px;
+  font-size: 1.4rem;
+  border-bottom: 1px solid #e0e0e0;
+  padding-bottom: 16px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.field label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.field input {
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  outline: none;
+}
+
+.field input:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.15);
+}
+
+.field input.input-error {
+  border-color: #dc3545;
+}
+
+.field-error {
+  font-size: 0.8rem;
+  color: #dc3545;
+}
+
+.checkout-form button[type="submit"] {
+  padding: 12px;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+  margin-top: 4px;
+}
+
+.checkout-form button[type="submit"]:hover:not(:disabled) {
+  background: #0056b3;
+}
+
+.checkout-form button[type="submit"]:disabled {
+  background: #b0c4de;
+  cursor: not-allowed;
+}
+
+.back-link {
+  display: inline-block;
+  font-size: 0.875rem;
+  color: #007bff;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+  text-decoration: underline;
+}
+
+.back-link:hover {
+  color: #0056b3;
+}
