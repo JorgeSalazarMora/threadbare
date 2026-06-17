@@ -1,16 +1,59 @@
-# React + Vite
+# Threadbare
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A full-stack clothing store built as a 30-day challenge. The goal is to evolve an existing React frontend into a production-grade application backed by Spring Boot, PostgreSQL, JWT authentication, and Docker — one focused concept per day.
 
-Currently, two official plugins are available:
+## What this is
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+The 7-day frontend challenge (Days 1–7) produced a working React store: product browsing, category filtering, search, a cart, and a checkout form — all running in the browser with hardcoded data. The 30-day backend challenge picks up from there, replacing the hardcoded data with a real database and adding auth, orders, an admin area, tests, and a free-tier deployment.
 
-## React Compiler
+## Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+| Layer      | Technology                              |
+|------------|-----------------------------------------|
+| Frontend   | React 19, Vite 8, React Router v7       |
+| Backend    | Spring Boot 4, Java 17, Maven           |
+| Database   | PostgreSQL 16 (via Docker Compose)      |
+| Auth       | JWT (stateless), BCrypt                 |
+| Deploy     | TBD (Day 29)                            |
 
-## Expanding the ESLint configuration
+## Repo layout
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+```
+treadbare/
+├── frontend/   # Vite + React app
+└── backend/    # Spring Boot API
+```
+
+## Running the project
+
+**Frontend** (no backend required yet):
+
+```bash
+cd frontend
+npm install
+npm run dev
+# http://localhost:5173
+```
+
+**Backend** (requires Java 17+):
+
+```bash
+cd backend
+./mvnw spring-boot:run
+# http://localhost:8080/api/health
+```
+
+**Full stack** (once Docker Compose is added in Day 3):
+
+```bash
+docker compose up
+```
+
+## Progress
+
+| Day | Topic                        | Status      |
+|-----|------------------------------|-------------|
+| 1   | Spring Boot setup, /health   | Done        |
+| 2–30| Products, DB, Auth, Orders…  | In progress |
+
+See `backend/README.md` for backend-specific notes and `frontend/README.md` for frontend details.

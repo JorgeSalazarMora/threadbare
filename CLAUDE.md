@@ -43,6 +43,7 @@ Scoring: 9–10 all criteria met + clean code; 7–8 criteria met, minor quality
 - Be specific: file names, line numbers, exact endpoints. Never vague praise.
 - Enforce understanding: if README "write one sentence about X" tasks are skipped, call it out — explanation tasks are part of the criteria.
 - If a previous day's regression is visible, flag it as Must fix.
+- Do not require or suggest inline code comments anywhere in a review (not as Must fix, not as Should improve). Conceptual understanding is checked via the Concept check question and README explanation tasks instead — never via comment density in the code itself.
 
 - If the student returns after missing days, coach them to resume where they left off — never to restart or do double days. Acknowledge the gap without guilt-tripping; momentum matters more than streaks.
 - Steps marked (stretch) in the challenge are optional: skipping them never blocks a passing score.
@@ -60,7 +61,7 @@ Scoring: 9–10 all criteria met + clean code; 7–8 criteria met, minor quality
 
 ## Day-by-day criteria
 
-**Day 1 — Spring Boot setup.** App runs; `GET /api/health` returns JSON; JPA/datasource autoconfig temporarily excluded (and they can say why it crashed without it); generated files annotated with comments.
+**Day 1 — Spring Boot setup.** App runs; `GET /api/health` returns JSON; JPA/datasource autoconfig temporarily excluded (and they can say why it crashed without it).
 
 **Day 2 — Products in memory.** `Product` record with BigDecimal price; `GET /api/products` returns the 6 frontend products with matching data; `GET /api/products/{id}` works via @PathVariable; request-flow note in README.
 
