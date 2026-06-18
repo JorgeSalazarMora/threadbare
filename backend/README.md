@@ -37,9 +37,11 @@ This exclusion will be removed in Day 3 once PostgreSQL is running via Docker Co
 
 ## Current endpoints
 
-| Method | Path         | Auth | Description  |
-|--------|--------------|------|--------------|
-| GET    | /api/health  | None | Health check |
+| Method | Path               | Auth | Description        |
+|--------|--------------------|------|--------------------|
+| GET    | /api/health        | None | Health check       |
+| GET    | /api/products      | None | List all products  |
+| GET    | /api/products/{id} | None | Get product by id  |
 
 ## Running tests
 
@@ -50,3 +52,12 @@ This exclusion will be removed in Day 3 once PostgreSQL is running via Docker Co
 ## Production note
 
 Secrets (`spring.datasource.password`, JWT secret) must be supplied as environment variables in production — never committed to source control.
+
+## Request flow
+
+When a request hits GET /api/products, the embedded Tomcat server
+receives it first and hands it to Spring's DispatcherServlet, which
+matches the path to the getAllProducts() method based on its
+@GetMapping annotation. That method runs and returns a
+List<Product>, which Jackson automatically converts into JSON
+before Tomcat sends it back to the client as the HTTP response.
