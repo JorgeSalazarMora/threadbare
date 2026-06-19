@@ -61,3 +61,9 @@ matches the path to the getAllProducts() method based on its
 @GetMapping annotation. That method runs and returns a
 List<Product>, which Jackson automatically converts into JSON
 before Tomcat sends it back to the client as the HTTP response.
+
+## Security note
+
+Database credentials in compose.yaml are for local development only.
+In production, DB_PASSWORD and JWT_SECRET are injected as environment
+variables and never committed to the repository.
